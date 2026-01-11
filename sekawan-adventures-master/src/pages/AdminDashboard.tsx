@@ -6,7 +6,7 @@ import { Mountain, Package, MapPin, ShoppingBag, Users, LogOut, TrendingUp, Aler
 import { toast } from "sonner";
 
 const AdminDashboard = () => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<unknown>(null);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
     totalItems: 0,

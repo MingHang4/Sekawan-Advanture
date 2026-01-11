@@ -6,8 +6,8 @@ import { Mountain, Tent, MapPin, History, LogOut, User, ShoppingCart } from "luc
 import { toast } from "sonner";
 
 const CustomerDashboard = () => {
-  const [user, setUser] = useState<any>(null);
-  const [profile, setProfile] = useState<any>(null);
+  const [user, setUser] = useState<unknown>(null);
+  const [profile, setProfile] = useState<unknown>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 

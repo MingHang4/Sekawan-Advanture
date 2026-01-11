@@ -107,14 +107,17 @@ const Auth = () => {
         if (error) throw error;
         toast.success("Akun berhasil dibuat! Silakan cek email untuk verifikasi.");
       }
-    } catch (error: any) {
+    } catch (err) {
       let message = "Terjadi kesalahan";
-      if (error.message.includes("Invalid login")) {
-        message = "Email atau password salah";
-      } else if (error.message.includes("already registered")) {
-        message = "Email sudah terdaftar";
-      } else if (error.message.includes("Password")) {
-        message = "Password tidak memenuhi syarat";
+      if (err instanceof Error) {
+        const errorMsg = err.message;
+        if (errorMsg.includes("Invalid login")) {
+          message = "Email atau password salah";
+        } else if (errorMsg.includes("already registered")) {
+          message = "Email sudah terdaftar";
+        } else if (errorMsg.includes("Password")) {
+          message = "Password tidak memenuhi syarat";
+        }
       }
       toast.error(message);
     } finally {
