@@ -25,19 +25,12 @@ const ItemsPage = () => {
   const navigate = useNavigate();
   const { addItem, totalItems } = useCart();
 
+
   useSeeder();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        navigate("/auth");
-        return;
-      }
-      fetchItems();
-    };
-    checkAuth();
-  }, [navigate]);
+    fetchItems();
+  }, []);
 
   const fetchItems = async () => {
     const { data, error } = await supabase

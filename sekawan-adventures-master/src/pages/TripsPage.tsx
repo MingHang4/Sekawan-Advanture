@@ -3,7 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
-import { Mountain, ArrowLeft, Calendar, Users, MapPin, Clock } from "lucide-react";
+import { Mountain, ArrowLeft, Calendar, Users, MapPin, Clock, Smartphone } from "lucide-react";
+// Nomor WhatsApp tujuan (ganti sesuai kebutuhan)
+const WHATSAPP_NUMBER = "6287781230443";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
@@ -28,19 +30,12 @@ const TripsPage = () => {
   const [booking, setBooking] = useState(false);
   const navigate = useNavigate();
 
+
   useSeeder();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        navigate("/auth");
-        return;
-      }
-      fetchTrips();
-    };
-    checkAuth();
-  }, [navigate]);
+    fetchTrips();
+  }, []);
 
   const fetchTrips = async () => {
     const { data, error } = await supabase
@@ -71,7 +66,12 @@ const TripsPage = () => {
 
   const handleBookTrip = async (trip: Trip) => {
     const { data: { session } } = await supabase.auth.getSession();
-    if (!session) return;
+    // Cek login hanya saat booking, jika belum login arahkan ke /auth
+    if (!session) {
+      toast.error("Silakan login untuk booking trip");
+      navigate("/auth");
+      return;
+    }
 
     setBooking(true);
 
@@ -91,6 +91,25 @@ const TripsPage = () => {
     }
 
     toast.success("Berhasil mendaftar trip!");
+    // Pesan WhatsApp profesional & rapi
+    const pesan = [
+      '*PEMESANAN TRIP SEKAWAN ADVENTURE*',
+      '',
+      'Detail Trip:',
+      `• Nama Trip   : ${trip.title}`,
+      trip.destination ? `• Destinasi   : ${trip.destination}` : null,
+      trip.date ? `• Tanggal     : ${formatDate(trip.date)}` : null,
+      trip.duration_days ? `• Durasi      : ${trip.duration_days} hari` : null,
+      `• Harga       : ${formatPrice(trip.price)} / orang`,
+      '',
+      `• Email Pemesan: ${session.user.email}`,
+      '',
+      'Mohon konfirmasi ketersediaan slot dan langkah pembayaran. Terima kasih.',
+      '',
+      'Salam,',
+      session.user.email
+    ].filter(Boolean).join('\n');
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(pesan)}`, "_blank");
     setSelectedTrip(null);
     navigate("/history");
   };
@@ -243,7 +262,7 @@ const TripsPage = () => {
                     disabled={selectedTrip.quota === 0 || booking}
                     onClick={() => handleBookTrip(selectedTrip)}
                   >
-                    {booking ? "Memproses..." : selectedTrip.quota === 0 ? "Kuota Penuh" : "Pesan Trip"}
+                    {booking ? "Memproses..." : selectedTrip.quota === 0 ? "Kuota Penuh" : "Pesan & Chat WA"}
                   </Button>
                 </div>
               </div>

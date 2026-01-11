@@ -174,7 +174,7 @@ const CartPage = () => {
 
                   <Button
                     variant="gold"
-                    className="w-full"
+                    className="w-full mb-2"
                     size="lg"
                     onClick={handleCheckout}
                     disabled={checkingOut}
@@ -187,6 +187,34 @@ const CartPage = () => {
                     ) : (
                       "Checkout"
                     )}
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    size="lg"
+                    onClick={() => {
+                      const waNumber = '6287781230443'; // Nomor admin WA
+                      const pesan = [
+                        '*PESANAN SEWA PERALATAN SEKAWAN ADVENTURE*',
+                        '',
+                        'Detail Pesanan:',
+                        ...items.map((item, i) => `• ${item.name} x ${item.quantity} hari = ${formatPrice(item.price * item.quantity)}`),
+                        '',
+                        `Total: ${formatPrice(totalPrice)}`,
+                        '',
+                        'Mohon konfirmasi ketersediaan alat dan langkah pembayaran. Terima kasih.',
+                        '',
+                        'Nama: ______',
+                        'Tanggal sewa: ______',
+                        'Catatan: ______',
+                      ].join('\n');
+                      const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(pesan)}`;
+                      window.open(url, '_blank');
+                    }}
+                    disabled={items.length === 0}
+                  >
+                    Checkout via WhatsApp
                   </Button>
                 </div>
               </div>

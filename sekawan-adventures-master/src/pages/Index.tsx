@@ -1,8 +1,29 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { Mountain, Tent, MapPin, Shield, Users, Award, ChevronRight, Compass } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Mountain, Tent, MapPin, Shield, Users, Award, ChevronRight, Compass, User, LogOut } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    navigate("/auth");
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
@@ -20,9 +41,16 @@ const Index = () => {
               <a href="#about" className="text-muted-foreground hover:text-accent transition-colors">Tentang</a>
               <a href="#contact" className="text-muted-foreground hover:text-accent transition-colors">Kontak</a>
             </div>
-            <Link to="/auth">
-              <Button variant="gold" size="sm">Masuk</Button>
-            </Link>
+            {user ? (
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-foreground flex items-center gap-1"><User className="w-4 h-4" />{user.email}</span>
+                <Button variant="gold" size="sm" onClick={handleLogout}><LogOut className="w-4 h-4 mr-1" />Logout</Button>
+              </div>
+            ) : (
+              <Link to="/auth">
+                <Button variant="gold" size="sm">Masuk</Button>
+              </Link>
+            )}
           </div>
         </div>
       </nav>
@@ -90,7 +118,7 @@ const Index = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Service Card 1 - Clickable to /items */}
-            <Link to="/auth" className="group relative rounded-2xl overflow-hidden cursor-pointer block">
+            <Link to="/items" className="group relative rounded-2xl overflow-hidden cursor-pointer block">
               <div 
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                 style={{ 
@@ -112,7 +140,7 @@ const Index = () => {
             </Link>
 
             {/* Service Card 2 - Clickable to /trips */}
-            <Link to="/auth" className="group relative rounded-2xl overflow-hidden cursor-pointer block">
+            <Link to="/trips" className="group relative rounded-2xl overflow-hidden cursor-pointer block">
               <div 
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                 style={{ 
@@ -134,7 +162,7 @@ const Index = () => {
             </Link>
 
             {/* Service Card 3 - Clickable to /trips */}
-            <Link to="/auth" className="group relative rounded-2xl overflow-hidden cursor-pointer block md:col-span-2 lg:col-span-1">
+            <Link to="/trips" className="group relative rounded-2xl overflow-hidden cursor-pointer block md:col-span-2 lg:col-span-1">
               <div 
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                 style={{ 
@@ -277,8 +305,8 @@ const Index = () => {
             <div>
               <h4 className="font-semibold text-foreground mb-4">Layanan</h4>
               <ul className="space-y-2 text-muted-foreground">
-                <li><Link to="/auth" className="hover:text-accent transition-colors">Sewa Peralatan</Link></li>
-                <li><Link to="/auth" className="hover:text-accent transition-colors">Trip Adventure</Link></li>
+                <li><Link to="/items" className="hover:text-accent transition-colors">Sewa Peralatan</Link></li>
+                <li><Link to="/trips" className="hover:text-accent transition-colors">Trip Adventure</Link></li>
                 <li><Link to="/auth" className="hover:text-accent transition-colors">Private Group</Link></li>
               </ul>
             </div>
