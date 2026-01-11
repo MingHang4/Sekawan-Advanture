@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* Premium Dark Forest + Gold Theme */
+    --background: 160 40% 5%;
+    --foreground: 45 20% 95%;
+
+    --card: 160 35% 8%;
+    --card-foreground: 45 20% 95%;
+
+    --popover: 160 35% 8%;
+    --popover-foreground: 45 20% 95%;
+
+    /* Forest Green Primary */
+    --primary: 165 65% 11%;
+    --primary-foreground: 45 40% 90%;
+
+    /* Secondary - lighter forest */
+    --secondary: 160 30% 15%;
+    --secondary-foreground: 45 20% 95%;
+
+    --muted: 160 20% 12%;
+    --muted-foreground: 160 10% 55%;
+
+    /* Gold Accent */
+    --accent: 43 65% 52%;
+    --accent-foreground: 160 40% 5%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 160 25% 18%;
+    --input: 160 25% 15%;
+    --ring: 43 65% 52%;
+
+    --radius: 0.75rem;
+
+    /* Custom theme colors */
+    --gold: 43 65% 52%;
+    --gold-light: 43 70% 65%;
+    --gold-dark: 43 60% 40%;
+    --forest: 165 65% 11%;
+    --forest-light: 160 35% 20%;
+    --forest-dark: 160 40% 5%;
+
+    /* Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(43, 65%, 52%), hsl(43, 70%, 65%));
+    --gradient-forest: linear-gradient(135deg, hsl(160, 35%, 8%), hsl(160, 40%, 5%));
+    --gradient-hero: linear-gradient(180deg, transparent 0%, hsl(160, 40%, 5%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(160, 35%, 10%) 0%, hsl(160, 35%, 6%) 100%);
+
+    /* Shadows */
+    --shadow-gold: 0 0 30px hsl(43 65% 52% / 0.15);
+    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.3);
+    --shadow-elevated: 0 20px 50px hsl(0 0% 0% / 0.4);
+
+    /* Glass */
+    --glass-bg: hsl(160 35% 8% / 0.7);
+    --glass-border: hsl(160 25% 25% / 0.3);
+
+    --sidebar-background: 160 35% 8%;
+    --sidebar-foreground: 45 20% 95%;
+    --sidebar-primary: 43 65% 52%;
+    --sidebar-primary-foreground: 160 40% 5%;
+    --sidebar-accent: 160 30% 15%;
+    --sidebar-accent-foreground: 45 20% 95%;
+    --sidebar-border: 160 25% 18%;
+    --sidebar-ring: 43 65% 52%;
+  }
+
+  .dark {
+    --background: 160 40% 5%;
+    --foreground: 45 20% 95%;
+    --card: 160 35% 8%;
+    --card-foreground: 45 20% 95%;
+    --popover: 160 35% 8%;
+    --popover-foreground: 45 20% 95%;
+    --primary: 165 65% 11%;
+    --primary-foreground: 45 40% 90%;
+    --secondary: 160 30% 15%;
+    --secondary-foreground: 45 20% 95%;
+    --muted: 160 20% 12%;
+    --muted-foreground: 160 10% 55%;
+    --accent: 43 65% 52%;
+    --accent-foreground: 160 40% 5%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 160 25% 18%;
+    --input: 160 25% 15%;
+    --ring: 43 65% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply backdrop-blur-xl border border-border/30;
+    background: var(--glass-bg);
+  }
+
+  .gold-glow {
+    box-shadow: var(--shadow-gold);
+  }
+
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-gold);
+  }
+
+  .btn-gold {
+    @apply bg-accent text-accent-foreground font-semibold px-6 py-3 rounded-lg transition-all duration-300;
+  }
+
+  .btn-gold:hover {
+    @apply scale-105;
+    box-shadow: var(--shadow-gold);
+  }
+
+  .hero-overlay {
+    background: linear-gradient(180deg, hsl(160 40% 5% / 0.3) 0%, hsl(160 40% 5% / 0.8) 70%, hsl(160 40% 5%) 100%);
+  }
+
+  .section-fade {
+    @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+  }
+
+  .section-fade.visible {
+    @apply opacity-100 translate-y-0;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.6s ease-out forwards;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+}
