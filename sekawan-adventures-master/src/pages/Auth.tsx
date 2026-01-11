@@ -109,8 +109,11 @@ const Auth = () => {
       }
     } catch (err) {
       let message = "Terjadi kesalahan";
+      console.error("Auth error:", err);
       if (err instanceof Error) {
         const errorMsg = err.message;
+        // Show the raw error message for easier debugging while keeping localized fallbacks
+        message = errorMsg || message;
         if (errorMsg.includes("Invalid login")) {
           message = "Email atau password salah";
         } else if (errorMsg.includes("already registered")) {
@@ -118,6 +121,8 @@ const Auth = () => {
         } else if (errorMsg.includes("Password")) {
           message = "Password tidak memenuhi syarat";
         }
+      } else if (typeof err === "string") {
+        message = err;
       }
       toast.error(message);
     } finally {
