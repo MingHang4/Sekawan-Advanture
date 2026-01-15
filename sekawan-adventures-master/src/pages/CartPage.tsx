@@ -194,7 +194,7 @@ const CartPage = () => {
                     className="w-full"
                     size="lg"
                     onClick={() => {
-                      const waNumber = '6287781230443'; // Nomor admin WA
+                      const waNumber = '6285866690595'; // Nomor admin WA
                       const pesan = [
                         '*PESANAN SEWA PERALATAN SEKAWAN ADVENTURE*',
                         '',

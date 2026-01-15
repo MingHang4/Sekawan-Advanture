@@ -122,7 +122,7 @@ const Index = () => {
               <div 
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                 style={{ 
-                  backgroundImage: "url('https://images.unsplash.com/photo-1500048993959-dcfe0c0cfdab?q=85&w=1800')"
+                  backgroundImage: "url('https://images.unsplash.com/photo-1625013964767-0e4b3c041607?q=80&w=867&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" // tenda di pegunungan
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
@@ -144,7 +144,7 @@ const Index = () => {
               <div 
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                 style={{ 
-                  backgroundImage: "url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=85&w=1800')"
+                  backgroundImage: "url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=85&w=1800')" // pegunungan danau
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
@@ -166,7 +166,7 @@ const Index = () => {
               <div 
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                 style={{ 
-                  backgroundImage: "url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=85&w=1800')"
+                  backgroundImage: "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=85&w=1800')" // grup orang di alam malam
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
