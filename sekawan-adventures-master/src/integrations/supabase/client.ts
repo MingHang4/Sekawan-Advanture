@@ -2,8 +2,8 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
-const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
+const SUPABASE_URL = "https://asounbawcfytlyuhzdwn.supabase.co/rest/v1/";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_UKdJkIWXGrjXYXjGeI0hYA_0UauuncC";
 console.log('[SUPABASE] URL:', SUPABASE_URL);
 console.log('[SUPABASE] KEY:', SUPABASE_PUBLISHABLE_KEY?.slice(0, 8) + '...');
 
