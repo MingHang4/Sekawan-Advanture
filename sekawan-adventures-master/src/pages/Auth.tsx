@@ -94,7 +94,7 @@ const Auth = () => {
         toast.success("Berhasil masuk!");
       } else {
         const redirectUrl = `${window.location.origin}/`;
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -104,7 +104,22 @@ const Auth = () => {
             },
           },
         });
+        console.log("signUp response:", data, error);
         if (error) throw error;
+        // Insert default role for new users so app can redirect correctly after verification/login
+        try {
+          const userId = data?.user?.id;
+          if (userId) {
+            const { error: roleErr } = await supabase.from("user_roles").insert({
+              user_id: userId,
+              role: "customer",
+            });
+            if (roleErr) console.error("Failed to insert user_roles:", roleErr);
+          }
+        } catch (e) {
+          console.error("Error inserting user_roles:", e);
+        }
+
         toast.success("Akun berhasil dibuat! Silakan cek email untuk verifikasi.");
       }
     } catch (err) {
