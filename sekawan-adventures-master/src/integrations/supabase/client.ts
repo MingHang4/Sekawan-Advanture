@@ -2,7 +2,7 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
-const SUPABASE_URL = "https://asounbawcfytlyuhzdwn.supabase.co/rest/v1/";
+const SUPABASE_URL = "https://asounbawcfytlyuhzdwn.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_UKdJkIWXGrjXYXjGeI0hYA_0UauuncC";
 console.log('[SUPABASE] URL:', SUPABASE_URL);
 console.log('[SUPABASE] KEY:', SUPABASE_PUBLISHABLE_KEY?.slice(0, 8) + '...');
