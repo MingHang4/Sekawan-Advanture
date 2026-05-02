@@ -22,7 +22,6 @@ const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [lastAuthDebug, setLastAuthDebug] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -91,7 +90,6 @@ const Auth = () => {
           email,
           password,
         });
-        setLastAuthDebug(JSON.stringify({ data, error }, null, 2));
         if (error) throw error;
         toast.success("Berhasil masuk!");
       } else {
@@ -107,7 +105,6 @@ const Auth = () => {
           },
         });
         console.log("signUp response:", data, error);
-        setLastAuthDebug(JSON.stringify({ data, error }, null, 2));
         if (error) throw error;
         // Insert default role for new users so app can redirect correctly after verification/login
         try {
@@ -264,13 +261,6 @@ const Auth = () => {
               )}
             </Button>
           </form>
-
-          {lastAuthDebug && (
-            <div className="mt-6 p-4 bg-secondary rounded-md text-sm text-foreground">
-              <div className="font-medium mb-2">Debug info (signUp / signIn response)</div>
-              <pre className="whitespace-pre-wrap text-xs">{lastAuthDebug}</pre>
-            </div>
-          )}
 
           <div className="mt-6 text-center">
             <p className="text-muted-foreground">
