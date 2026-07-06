@@ -18,6 +18,16 @@ import AdminOrders from "./pages/AdminOrders";
 import NotFound from "./pages/NotFound";
 import BrokenImport from "./konten";
 
+function App() {
+  return (
+    <>
+      <BrokenImport />
+      {/* kode asli lainnya tetap di bawah ini */}
+      ...
+    </>
+  );
+}
+
 const queryClient = new QueryClient();
 
 const App = () => (
