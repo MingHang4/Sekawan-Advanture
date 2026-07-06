@@ -16,7 +16,7 @@ import AdminItems from "./pages/AdminItems";
 import AdminTrips from "./pages/AdminTrips";
 import AdminOrders from "./pages/AdminOrders";
 import NotFound from "./pages/NotFound";
-import BrokenImport from "./file-yang-tidak-ada";
+import BrokenImport from "./konten";
 
 const queryClient = new QueryClient();
 
